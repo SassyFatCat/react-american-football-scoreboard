@@ -12,12 +12,11 @@ const [timer, setTimer] = useState({
   ones: 5,
   tenSec: 0,
   oneSec: 0,
-  quarter: 3
 });
 let timerComp = () => {
 // Timer
 if (timer.tens === 0 && timer.ones === 0 && timer.tenSec === 0 && timer.oneSec === 0) {
-  clearInterval(timerInterval)
+  timerInterval(clearInterval)
 }
 
 else if (timer.ones === 0 && timer.tenSec === 0 && timer.oneSec === 0 && timer.tens > 0) {
@@ -36,6 +35,7 @@ else {
 setTimer({...timer, oneSec: timer.oneSec - 1})
 }
 }
+
 let timerInterval = setTimeout(timerComp, 1000);
 
 
