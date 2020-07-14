@@ -12,11 +12,16 @@ const [timer, setTimer] = useState({
   ones: 5,
   tenSec: 0,
   oneSec: 0,
+  quarter: 4
 });
 let timerComp = () => {
 // Timer
-if (timer.tens === 0 && timer.ones === 0 && timer.tenSec === 0 && timer.oneSec === 0) {
-  timerInterval(clearInterval)
+if (timer.tens === 0 && timer.ones === 0 && timer.tenSec === 0 && timer.oneSec === 0 && timer.quarter === 0) {
+  return null
+}
+
+else if (timer.tens === 0 && timer.ones === 0 && timer.tenSec === 0 && timer.oneSec === 0 && timer.quarter > 0) {
+  setTimer({...timer, tens: 1, ones: 5, quarter: timer.quarter - 1})
 }
 
 else if (timer.ones === 0 && timer.tenSec === 0 && timer.oneSec === 0 && timer.tens > 0) {
@@ -35,8 +40,7 @@ else {
 setTimer({...timer, oneSec: timer.oneSec - 1})
 }
 }
-
-let timerInterval = setTimeout(timerComp, 1000);
+setTimeout(timerComp, 1000)
 
 
   return (
@@ -54,7 +58,7 @@ let timerInterval = setTimeout(timerComp, 1000);
             <div className="away__score">{tigerScore}</div>
           </div>
         </div>
-        <BottomRow />
+        <BottomRow props = {timer}/>
       </section>
       <section className="buttons">
         <div className="homeButtons">
