@@ -7,7 +7,31 @@ function App() {
   //TODO: STEP 2 - Establish your applictaion's state with some useState hooks.  You'll need one for the home score and another for the away score.
 const [tigerScore, setTigerScore] = useState(0);
 const [lionScore, setLionsScore] = useState(0);
+const [timer, setTimer] = useState({
+  tens: 1,
+  ones: 0,
+  tenSec: 0,
+  oneSec: 0
+});
+setTimeout(() => {
+// Timer
+if (timer.ones === 0 && timer.tenSec === 0 && timer.oneSec === 0 && timer.tens > 0) {
+setTimer({...timer, ones: 9, tens: timer.tens - 1, tenSec: 5, oneSec: 9});
+}
 
+else if (timer.tenSec === 0 && timer.oneSec === 0) {
+setTimer({...timer, ones: timer.ones - 1, tenSec: 5, oneSec: 9})
+}
+
+else if (timer.oneSec === 0) {
+setTimer({...timer, tenSec: timer.tenSec - 1, oneSec: 9});
+}
+
+else {
+setTimer({...timer, oneSec: timer.oneSec - 1})
+}
+}, 1000)
+// console.log(timer)
   return (
     <div className="container">
       <section className="scoreboard">
@@ -17,7 +41,7 @@ const [lionScore, setLionsScore] = useState(0);
             {/* TODO STEP 3 - We need to change the hardcoded values in these divs to accept dynamic values from our state. */}
             <div className="home__score">{lionScore}</div>
           </div>
-          <div className="timer">00:00</div>
+          <div className="timer">{timer.tens}{timer.ones}:{timer.tenSec}{timer.oneSec}</div>
           <div className="away">
             <h2 className="away__name">Tigers</h2>
             <div className="away__score">{tigerScore}</div>
