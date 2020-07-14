@@ -9,13 +9,18 @@ const [tigerScore, setTigerScore] = useState(0);
 const [lionScore, setLionsScore] = useState(0);
 const [timer, setTimer] = useState({
   tens: 1,
-  ones: 0,
+  ones: 5,
   tenSec: 0,
-  oneSec: 0
+  oneSec: 0,
+  quarter: 3
 });
-setTimeout(() => {
+let timerComp = () => {
 // Timer
-if (timer.ones === 0 && timer.tenSec === 0 && timer.oneSec === 0 && timer.tens > 0) {
+if (timer.tens === 0 && timer.ones === 0 && timer.tenSec === 0 && timer.oneSec === 0) {
+  clearInterval(timerInterval)
+}
+
+else if (timer.ones === 0 && timer.tenSec === 0 && timer.oneSec === 0 && timer.tens > 0) {
 setTimer({...timer, ones: 9, tens: timer.tens - 1, tenSec: 5, oneSec: 9});
 }
 
@@ -30,8 +35,10 @@ setTimer({...timer, tenSec: timer.tenSec - 1, oneSec: 9});
 else {
 setTimer({...timer, oneSec: timer.oneSec - 1})
 }
-}, 1000)
-// console.log(timer)
+}
+let timerInterval = setTimeout(timerComp, 1000);
+
+
   return (
     <div className="container">
       <section className="scoreboard">
@@ -56,6 +63,7 @@ setTimer({...timer, oneSec: timer.oneSec - 1})
           <button className="homeButtons__touchdown" onClick={() => setLionsScore(lionScore + 7)}>Home Touchdown</button>
           <button className="homeButtons__fieldGoal" onClick={() => setLionsScore(lionScore + 3)}>Home Field Goal</button>
         </div>
+        <div><button>Start</button></div>
         <div className="awayButtons">
           <button className="awayButtons__touchdown" onClick={() => setTigerScore(tigerScore + 7)}>Away Touchdown</button>
           <button className="awayButtons__fieldGoal" onClick={() => setTigerScore(tigerScore + 3)}>Away Field Goal</button>
